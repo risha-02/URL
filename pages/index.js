@@ -11,7 +11,7 @@ export default function Home() {
       body: JSON.stringify({ longUrl }),
     });
     const data = await res.json();
-    if (data.shortUrl) setShortUrl(`https://${data.shortUrl}`);
+    if (data.shortUrl) setShortUrl(data.shortUrl);
   };
 
   return (
