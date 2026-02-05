@@ -1,4 +1,4 @@
-import  supabase  from "../../lib/supabaseClient";
+import  supabase  from "../../src/lib/supabaseClient";
 
 // Function to generate random short code
 function generateShortCode(length = 6) {
