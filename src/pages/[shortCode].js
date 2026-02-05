@@ -5,7 +5,7 @@ export async function getServerSideProps({ params }) {
 
   const { data, error } = await supabase
     .from("urls")
-    .select("original_url")
+    .select("long_url")
     .eq("short_code", shortCode)
     .single();
 
@@ -17,7 +17,7 @@ export async function getServerSideProps({ params }) {
 
   return {
     redirect: {
-      destination: data.original_url,
+      destination: data.long_url,
       permanent: false,
     },
   };

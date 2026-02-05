@@ -1,4 +1,4 @@
-import { supabase } from "../../lib/supabaseClient";
+import  supabase  from "../../lib/supabaseClient";
 
 // Function to generate random short code
 function generateShortCode(length = 6) {
@@ -21,7 +21,7 @@ export default async function handler(req, res) {
 
     if (error) return res.status(500).json({ error: error.message });
 
-    res.status(200).json({ shortUrl: `http://${req.headers.host}/${shortCode}` });
+    res.status(200).json({ shortUrl: `${req.headers.origin}/${shortCode}` });
   } else {
     res.status(405).json({ error: "Method not allowed" });
   }
