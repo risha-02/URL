@@ -10,9 +10,18 @@ export default async function handler(req, res) {
   }
 
   const { longUrl } = req.body;
-  if (!longUrl) {
-    return res.status(400).json({ error: "URL is required" });
-  }
+
+
+if (!longUrl || longUrl.trim() === "") {
+  return res.status(400).json({ error: "URL is required" });
+}
+
+
+try {
+  new URL(longUrl);
+} catch {
+  return res.status(400).json({ error: "Invalid URL format" });
+}
 
   const shortCode = generateShortCode();
 
@@ -21,8 +30,9 @@ export default async function handler(req, res) {
     .insert([{ long_url: longUrl, short_code: shortCode }]);
 
   if (error) {
-    return res.status(500).json({ error: error.message });
-  }
+  console.error("DB Error:", error);
+  return res.status(500).json({ error: "Database error" });
+}
 
   res.status(200).json({
     shortUrl: `${req.headers.origin}/${shortCode}`,
